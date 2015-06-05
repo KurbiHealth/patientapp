@@ -47,7 +47,12 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
     url: '/journal',
     templateUrl: 'app/templates/journal_index.html'
   })
-  
+
+  .state('private.goals', {
+    url: '/goals',
+    templateUrl: 'app/templates/goals_index.html'
+  })
+
   .state('private.care-plan', {
     url: '/care-plan',
     templateUrl: 'app/templates/care-plan_index.html'
