@@ -2,7 +2,7 @@
   "name": "kurbiPatientApp",
   "version": "0.0.0",
   "description": "Kurbi's patient app",
-  "repository": "https://github.com/kurbi/patient-app",
+  "repository": "https://github.com/kurbi/patientapp",
   "devDependencies": {
     "http-server": "^0.6.1",
     "bower": "^1.3.1"

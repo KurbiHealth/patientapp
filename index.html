@@ -27,48 +27,7 @@
 
 <body ng-controller="mainController">
 
-<!-- HEADER -->
-<div id="header" class="container-fluid">
-	<div class="row">
-		<div class="col-sm-3 hidden-xs">
-			<div id="logo">
-				<a ui-sref="home"><img src="app/img/kurbi-icon-logo.png" alt="Kurbi" /></a>
-			</div><!--END #logo-->
-		</div>
-		<div class="col-sm-9">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<!-- ADD POST FORM -->
-					<div add-post></div>
-					<!-- /ADD POST FORM -->
-				</div>
-			</div>
-		</div>
-	</div><!--END .row-->
-</div><!--END #header-->
-<!-- /HEADER -->
-
-<div id="page-container" class="container-fluid">
-	<div class="row">
-		
-		<!-- SIDEBAR -->
-		<div ng-include src="'design/templates/sidebar.html'"></div>
-		<!-- /SIDEBAR -->
-		
-		<div id="content" class="col-md-9">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					
-					<!-- UI ROUTER -->
-					<div ui-view></div>
-					<!-- /UI ROUTER -->
-					
-				</div><!--END columns-->
-			</div><!--END .row-->
-		</div><!--END #content-->
-
-	</div><!--END .row-->
-</div><!--END #page-container-->
+	<div ui-view></div>
 
 </body>
 </html>
