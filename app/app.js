@@ -17,12 +17,22 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
   
   .state('care-plan', {
   	url: '/care-plan',
-  	templateUrl: 'app/templates/care-plan_index.html'
+  	templateUrl: 'app/templates/care_plan_index.html'
   })
   
   .state('progress-chart', {
   	url: '/progress-chart',
-  	templateUrl: 'app/templates/progress-chart_index.html'
+  	templateUrl: 'app/templates/progress_chart_index.html'
+  })
+  
+  .state('goals', {
+  	url: '/goals',
+  	templateUrl: 'app/templates/goals_index.html'
+  })
+  
+  .state('care-team', {
+  	url: '/care-team',
+  	templateUrl: 'app/templates/care_team_index.html'
   })
   
   ;
