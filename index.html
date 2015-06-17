@@ -16,6 +16,8 @@
 	 <script src="js_dependencies/angular-ui-router.min.js" type="text/javascript"></script>
 	 <script src="js_dependencies/ui-bootstrap.min.js" type="text/javascript"></script>
 	 <script src="modules/feed/directives.js" type="text/javascript"></script>
+	 <!--<script src="modules/login/directives.js" type="text/javascript"></script>-->
+
 	 <script src="app/app.js" type="text/javascript"></script>
 	 <script src="app/mainController.js" type="text/javascript"></script>
 	 <script src="modules/api/services.js" type="text/javascript"></script>
@@ -23,11 +25,27 @@
 	 <script src="modules/feed/services.js" type="text/javascript"></script>
 	 <script src="modules/feed/controllers.js" type="text/javascript"></script>
 	 
+	 <script src="modules/login/controllers.js" type="text/javascript"></script>
+
+	<!-- LANDING PAGE -->
+	<!-- <link rel="stylesheet" type="text/css" href="design/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="design/css/webflow.css">
+  	<link rel="stylesheet" type="text/css" href="design/css/gokurbi.webflow.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  	<script type="text/javascript" src="design/js/modernizr.js"></script>
+  	<link rel="shortcut icon" type="image/x-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico">
+  	<link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png"> -->
+	 
 </head>
 
 <body ng-controller="mainController">
 
-	<div ui-view></div>
+	<div ui-view>
+		<p class="loading-spinner">
+			<img src="design/img/loading_spinner.gif" />
+		</p>
+	</div>
 
 </body>
 </html>

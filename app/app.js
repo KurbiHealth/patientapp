@@ -1,36 +1,39 @@
 var kurbiApp = angular.module('kurbiPatient', ['ui.router', 'postDirectives']);
 
-kurbiApp.config(function($stateProvider, $urlRouterProvider) {
+kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 	
-	$urlRouterProvider.otherwise('/app/home');
+  $logProvider.debugEnabled(true);
+
+  // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
+  // https://github.com/angular-ui/ui-router/wiki#resolve
+
+  $urlRouterProvider.when('', '/public/home');
+
 	$stateProvider
 
 // PUBLIC PAGES
 
-/*  .state('public',{
-    url: '/p',
-    // templateUrl: 'design/templates/publicMasterTemplate.html'
-    template: '<ui-view/>'
-  })
-*/
-/*  .state('home',{
-    url: '/homeish',
-    //templateUrl: 'design/templates/publicHome.html'
-    template: '<p>public home</p>'
+  .state('public',{
+    url: '/public',
+    templateUrl: 'design/templates/publicMasterTemplate.html'
   })
 
-  .state('ourstory', {
+  .state('public.home',{
+    url: '/home',
+    templateUrl: 'design/templates/publicHome.html'
+  })
+
+  .state('public.ourstory', {
     url: '/our-story',
     templateUrl: 'design/templates/publicOurstory.html'
   })
-*/
 
-// PRIVATE PAGES (REQUIRE LOGIN)
-
-  .state('logInPage',{
+  .state('public.logInPage',{
     url: '/login',
     templateUrl: 'design/templates/publicLogin.html'
   })
+  
+// PRIVATE PAGES (REQUIRE LOGIN)
 
   .state('private',{
     url: '/app',
@@ -38,7 +41,7 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
     resolve: {authenticate: authenticate }
   })
 
-   .state('private.home', {
+  .state('private.home', {
       url: '/home',
       templateUrl: 'modules/feed/templates/index.html'
   })
@@ -65,22 +68,14 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
 
   ;
 
-  function authenticate($q, $state, $timeout, user) {
-    if (user.loggedIn == true) {
-      // Resolve the promise successfully
-      return $q.when();
-    } else {
-      // The next bit of code is asynchronously tricky.
-
-      $timeout(function() {
-        // This code runs after the authentication promise has been rejected.
-        // Go to the log-in page
-        $state.go('logInPage');
-      })
-
-      // Reject the authentication promise to prevent the state from loading
-      return $q.reject();
+  function authenticate ($q, user) {
+    var deferred = $q.defer();
+    if(user.loggedIn == true){
+      deferred.resolve();
+    }else{
+      deferred.reject('not logged in');
     }
+    return deferred.promise;
   }
 
 });
@@ -88,9 +83,17 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
 kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state',
 function ($rootScope, posts, api, user, $q, $state){
 
-  api.postsInit(user,$rootScope);
+  // FOR DEBUGGING
+  // $rootScope.$on("$stateChangeError", console.log.bind(console));
 
-  api.careTeamInit(user).then(function(data){
+  $rootScope.$on('$stateChangeError', function () {
+    // Redirect user to our login page
+    $state.go('public.logInPage');
+  });
+
+  api.postsInit($rootScope);
+
+  api.careTeamInit().then(function(data){
     $rootScope.careTeamList = data;
   });
 
