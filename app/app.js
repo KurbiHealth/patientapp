@@ -1,4 +1,4 @@
-var kurbiApp = angular.module('kurbiPatient', ['ui.router', 'postDirectives']);
+var kurbiApp = angular.module('kurbiPatient', ['ui.router', 'postDirectives', 'ui.bootstrap']);
 
 kurbiApp.config(function($stateProvider, $urlRouterProvider) {
 	
@@ -50,17 +50,17 @@ kurbiApp.config(function($stateProvider, $urlRouterProvider) {
 
   .state('private.goals', {
     url: '/goals',
-    templateUrl: 'app/templates/goals_index.html'
+    templateUrl: 'modules/goal/templates/index.html'
   })
 
   .state('private.care-plan', {
     url: '/care-plan',
-    templateUrl: 'app/templates/care-plan_index.html'
+    templateUrl: 'app/templates/care_plan_index.html'
   })
   
   .state('private.progress-chart', {
     url: '/progress-chart',
-    templateUrl: 'app/templates/progress-chart_index.html'
+    templateUrl: 'app/templates/progress_chart_index.html'
   })
 
   ;
