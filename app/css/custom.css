@@ -23,13 +23,12 @@ HEADER
 	position: fixed;
 	top: 0;
 	width: 100%;
-	height: 56px;
+	height: 70px;
 	background: #2F0862;
 	z-index: 9999;
 }
 
 #logo {
-	padding-top: 10px;
 	text-align: center;
 }
 
@@ -37,12 +36,35 @@ HEADER
 	outline: none !important;
 }
 
+#header ul.dropdown-menu li a {
+	padding: 0 15px;
+	font-size: 13px;
+	color: #333333;
+}
+
+#header .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+#header .dropdown-menu .divider {
+	margin: 5px 0;
+}  
+
+#navbar {
+	position: relative;
+	top: 70px;
+	padding: 10px 0;
+	width: 100%;
+	background: #cccccc;
+}
+
 /*--------------------------------------------
 BODY
 ---------------------------------------------*/
 #page-container {
 	position: relative;
-	top: 56px;
+	top: 70px;
 }
 
 #content {
@@ -141,7 +163,6 @@ SIDEBAR
 
 .sidebar-section {
 	padding: 10px 20px;
-	border-right: 1px solid #cccccc;
 	border-bottom: 1px solid #cccccc;
 }
 
@@ -158,17 +179,17 @@ SIDEBAR
 
 .side-headline i.fa.fa-plus {
 	color: #ffffff;
+	cursor: pointer;
 }
 
 #profile a {
 	font-size: 16px;
 	line-height: 40px;
-	color: #333333;
+	color: #ffffff;
 }
 
 #profile i.fa.fa-cog {
 	font-size: 24px;
-	color: #2F0862;
 	line-height: 40px;
 }
 
@@ -207,13 +228,10 @@ form.add-comment .form-group {
 	max-width: 650px;
 }
 
-form#add-post .form-group {
-	top: 10px;
-}
-
 form#add-post input[type="text"] {
 	padding-right: 75px;
 	max-width: 650px;
+	min-height: 40px;
 	outline: none !important;
 	border: none;
 }
@@ -222,6 +240,7 @@ form#add-post button.btn.btn-default {
 	position: absolute;
 	top: 1px;
 	right: 1px;
+	min-height: 39px;
 	border-top: none;
 	border-right: none;
 	border-bottom: none;
@@ -327,6 +346,10 @@ MISC
 .table-center {
 	display: table-cell;
 	vertical-align: middle;
+}
+
+.text-center {
+	text-align: center;
 }
 
 .hide {
