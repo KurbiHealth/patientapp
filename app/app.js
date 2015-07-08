@@ -1,4 +1,6 @@
-var kurbiApp = angular.module('kurbiPatient', ['ui.router', 'postDirectives']);
+var kurbiApp = angular.module('kurbiPatient', 
+  ['ui.router', 'postDirectives','ui.WellnessSlider',
+  'CardsModule','ngFileUpload','ngCookies']);
 
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 	
@@ -38,7 +40,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
   .state('private',{
     url: '/app',
     templateUrl: 'design/templates/privateMasterTemplate.html', 
-    resolve: {authenticate: authenticate }
+    resolve: {authenticate: authenticate}
   })
 
   .state('private.home', {
@@ -48,7 +50,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
   
   .state('private.journal', {
     url: '/journal',
-    templateUrl: 'app/templates/journal_index.html'
+    templateUrl: 'modules/journal/templates/index.html'
   })
 
   .state('private.goals', {
@@ -68,12 +70,17 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   ;
 
-  function authenticate ($q, user) {
+  function authenticate ($q, user, $cookies) {
     var deferred = $q.defer();
-    if(user.loggedIn == true){
+    if(user.loggedIn === true){
       deferred.resolve();
     }else{
-      deferred.reject('not logged in');
+      if($cookies.token != ''){
+        user.loggedIn = true;
+        deferred.resolve();
+      }else{
+        deferred.reject('not logged in');
+      }
     }
     return deferred.promise;
   }
@@ -83,18 +90,12 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state',
 function ($rootScope, posts, api, user, $q, $state){
 
-  // FOR DEBUGGING
+  // FOR DEBUGGING UI-ROUTER ($state)
   // $rootScope.$on("$stateChangeError", console.log.bind(console));
 
   $rootScope.$on('$stateChangeError', function () {
     // Redirect user to our login page
     $state.go('public.logInPage');
-  });
-
-  api.postsInit($rootScope);
-
-  api.careTeamInit().then(function(data){
-    $rootScope.careTeamList = data;
   });
 
 }]);
