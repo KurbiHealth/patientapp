@@ -1,6 +1,5 @@
 var kurbiApp = angular.module('kurbiPatient', 
-  ['ui.router', 'postDirectives','ui.WellnessSlider',
-  'CardsModule','ngFileUpload','ngCookies','ui.bootstrap']);
+  ['ui.router', 'postDirectives','ui.WellnessSlider','CardsModule','ngFileUpload','ngCookies','ui.bootstrap','uiRouterStyles']);
 
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 	
@@ -17,7 +16,10 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   .state('public',{
     url: '/public',
-    templateUrl: 'design/templates/publicMasterTemplate.html'
+    templateUrl: 'design/templates/publicMasterTemplate.html',
+    data: {
+      css: ['design/css/normalize.css','design/css/webflow.css','design/css/gokurbi.webflow.css']
+    }
   })
 
   .state('public.home',{
@@ -60,12 +62,12 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   .state('private.care-plan', {
     url: '/care-plan',
-    templateUrl: 'app/templates/care_plan_index.html'
+    templateUrl: 'app/templates/care-plan-index.html'
   })
   
   .state('private.progress-chart', {
     url: '/progress-chart',
-    templateUrl: 'app/templates/progress_chart_index.html'
+    templateUrl: 'modules/progress-chart/templates/index.html'
   })
 
   ;
@@ -87,8 +89,8 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
 });
 
-kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state',
-function ($rootScope, posts, api, user, $q, $state){
+kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state','$http',
+function ($rootScope, posts, api, user, $q, $state,$http){
 
   // FOR DEBUGGING UI-ROUTER ($state)
   // $rootScope.$on("$stateChangeError", console.log.bind(console));
@@ -96,6 +98,27 @@ function ($rootScope, posts, api, user, $q, $state){
   $rootScope.$on('$stateChangeError', function () {
     // Redirect user to our login page
     $state.go('public.logInPage');
+  });
+
+  // ADD CONFIG VALUES
+  $http.get('configDev.js')
+  .success(function(data) {
+    $rootScope.apiUrl       = configData.apiUrl;
+    $rootScope.hdaApiUrl    = configData.hdaApiUrl;
+    $rootScope.environment  = configData.environment;
+  })
+  .error(function(data, status, headers, config) {
+    $http.get('configDev.js')
+    .success(function(data) {
+      $rootScope.apiUrl       = configData.apiUrl;
+      $rootScope.hdaApiUrl    = configData.hdaApiUrl;
+      $rootScope.environment  = configData.environment;
+    })
+    .error(function(data, status, headers, config){
+      $rootScope.apiUrl       = '';
+      $rootScope.hdaApiUrl    = '';
+      $rootScope.environment  = '';
+    });
   });
 
 }]);
