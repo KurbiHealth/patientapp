@@ -1,6 +1,40 @@
 var kurbiApp = angular.module('kurbiPatient', 
   ['ui.router', 'postDirectives','ui.WellnessSlider','CardsModule','ngFileUpload','ngCookies','ui.bootstrap','uiRouterStyles']);
 
+// LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
+angular.element(document).ready(
+  function() {
+    var initInjector = angular.injector(['ng']);
+    var $http = initInjector.get('$http');
+
+    $http.get('configDev.json')
+    .success(
+      function(data) {
+        kurbiApp.constant('config', data);
+        angular.bootstrap(document, ['kurbiPatient']);
+      }
+    )
+    .error(function(data, status, headers, config){
+      $http.get('config.json')
+      .success(
+        function(data){
+          kurbiApp.constant('config', data);
+          angular.bootstrap(document, ['kurbiPatient']);
+        }
+      )
+      .error(function(data, status, headers, config){
+        var temp = {
+          apiUrl: 'http://api.gokurbi.com/v1/',
+          hdaApiUrl: 'http://hdaapi.gokurbi.com/v1/',
+          environment: 'prod'
+        }
+        kurbiApp.constant('config', temp);
+        angular.bootstrap(document, ['kurbiPatient']);
+      });
+    });
+  }
+);
+
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 	
   $logProvider.debugEnabled(true);
@@ -98,27 +132,6 @@ function ($rootScope, posts, api, user, $q, $state,$http){
   $rootScope.$on('$stateChangeError', function () {
     // Redirect user to our login page
     $state.go('public.logInPage');
-  });
-
-  // ADD CONFIG VALUES
-  $http.get('configDev.js')
-  .success(function(data) {
-    $rootScope.apiUrl       = configData.apiUrl;
-    $rootScope.hdaApiUrl    = configData.hdaApiUrl;
-    $rootScope.environment  = configData.environment;
-  })
-  .error(function(data, status, headers, config) {
-    $http.get('configDev.js')
-    .success(function(data) {
-      $rootScope.apiUrl       = configData.apiUrl;
-      $rootScope.hdaApiUrl    = configData.hdaApiUrl;
-      $rootScope.environment  = configData.environment;
-    })
-    .error(function(data, status, headers, config){
-      $rootScope.apiUrl       = '';
-      $rootScope.hdaApiUrl    = '';
-      $rootScope.environment  = '';
-    });
   });
 
 }]);
