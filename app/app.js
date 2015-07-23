@@ -11,6 +11,7 @@ angular.element(document).ready(
     .success(function(data, status) {
 console.log('setting dev config');
 console.log(status);
+console.log(data);
         kurbiApp.constant('config', data);
         angular.bootstrap(document, ['kurbiPatient']);
     })
