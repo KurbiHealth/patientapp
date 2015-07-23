@@ -8,31 +8,26 @@ angular.element(document).ready(
     var $http = initInjector.get('$http');
 
     $http.get('configDev.json')
-    .success(
-      function(data) {
+    .success(function(data) {
 console.log('setting dev config');
         kurbiApp.constant('config', data);
         angular.bootstrap(document, ['kurbiPatient']);
-      }
-    )
+    })
     .error(function(data, status, headers, config){
+console.log('error in config');
       $http.get('configTest.json')
-      .success(
-        function(data){
+      .success(function(data){
 console.log('setting test config');
           kurbiApp.constant('config', data);
           angular.bootstrap(document, ['kurbiPatient']);
-        }
-      )
+      })
       .error(function(data, status, headers, config){
         $http.get('config.json')
-        .success(
-          function(data){
+        .success(function(data){
 console.log('setting prod config');
             kurbiApp.constant('config', data);
             angular.bootstrap(document, ['kurbiPatient']);
-          }
-        )
+        })
         .error(function(data, status, headers, config){
 console.log('setting default config');
           var temp = {
@@ -42,9 +37,9 @@ console.log('setting default config');
           }
           kurbiApp.constant('config', temp);
           angular.bootstrap(document, ['kurbiPatient']);
-        });
-      });
-    }); // end of first .error
+        }); // end of 3rd .error
+      }); // end of 2nd .error
+    }); // end of 1st .error
   }
 );
 
