@@ -8,8 +8,9 @@ angular.element(document).ready(
     var $http = initInjector.get('$http');
 
     $http.get('http://test.gokurbi.com/configDev.json')
-    .success(function(data) {
+    .success(function(data, status) {
 console.log('setting dev config');
+console.log(status);
         kurbiApp.constant('config', data);
         angular.bootstrap(document, ['kurbiPatient']);
     })
