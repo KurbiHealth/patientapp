@@ -7,7 +7,7 @@ angular.element(document).ready(
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
 
-    $http.get('/configDev.json')
+    $http.get('configDev.json')
     .success(function(data, status) {
 console.log('setting dev config');
 console.log(status);
@@ -17,14 +17,16 @@ console.log(data);
     })
     .error(function(data, status, headers, config){
 console.log('error in config');
-      $http.get('/configTest.json')
-      .success(function(data){
+      $http.get('configTest.json')
+      .success(function(data, status){
 console.log('setting test config');
+console.log(status);
+console.log(data);
           kurbiApp.constant('config', data);
           angular.bootstrap(document, ['kurbiPatient']);
       })
       .error(function(data, status, headers, config){
-        $http.get('/config.json')
+        $http.get('config.json')
         .success(function(data){
 console.log('setting prod config');
             kurbiApp.constant('config', data);
