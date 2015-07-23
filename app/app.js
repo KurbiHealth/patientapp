@@ -16,12 +16,12 @@ angular.element(document).ready(
     )
     .error(function(data, status, headers, config){
       $http.get('configTest.json')
-      .success(function(data){
+      .success(
         function(data){
           kurbiApp.constant('config', data);
           angular.bootstrap(document, ['kurbiPatient']);
         }
-      })
+      )
       .error(function(data, status, headers, config){
         $http.get('config.json')
         .success(
@@ -40,7 +40,7 @@ angular.element(document).ready(
           angular.bootstrap(document, ['kurbiPatient']);
         });
       });
-    });
+    }); // end of first .error
   }
 );
 
