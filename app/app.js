@@ -15,21 +15,30 @@ angular.element(document).ready(
       }
     )
     .error(function(data, status, headers, config){
-      $http.get('config.json')
-      .success(
+      $http.get('configTest.json')
+      .success(function(data){
         function(data){
           kurbiApp.constant('config', data);
           angular.bootstrap(document, ['kurbiPatient']);
         }
-      )
+      })
       .error(function(data, status, headers, config){
-        var temp = {
-          apiUrl: 'http://api.gokurbi.com/v1/',
-          hdaApiUrl: 'http://hdaapi.gokurbi.com/v1/',
-          environment: 'prod'
-        }
-        kurbiApp.constant('config', temp);
-        angular.bootstrap(document, ['kurbiPatient']);
+        $http.get('config.json')
+        .success(
+          function(data){
+            kurbiApp.constant('config', data);
+            angular.bootstrap(document, ['kurbiPatient']);
+          }
+        )
+        .error(function(data, status, headers, config){
+          var temp = {
+            apiUrl: 'http://api.gokurbi.com/v1/',
+            hdaApiUrl: 'http://hdaapi.gokurbi.com/v1/',
+            environment: 'prod'
+          }
+          kurbiApp.constant('config', temp);
+          angular.bootstrap(document, ['kurbiPatient']);
+        });
       });
     });
   }
