@@ -9,31 +9,22 @@ angular.element(document).ready(
 
     $http.get('configDev.json')
     .success(function(data, status) {
-console.log('setting dev config');
-console.log(status);
-console.log(data);
         kurbiApp.constant('config', data);
         angular.bootstrap(document, ['kurbiPatient']);
     })
     .error(function(data, status, headers, config){
-console.log('error in config');
       $http.get('configTest.json')
       .success(function(data, status){
-console.log('setting test config');
-console.log(status);
-console.log(data);
           kurbiApp.constant('config', data);
           angular.bootstrap(document, ['kurbiPatient']);
       })
       .error(function(data, status, headers, config){
         $http.get('config.json')
         .success(function(data){
-console.log('setting prod config');
             kurbiApp.constant('config', data);
             angular.bootstrap(document, ['kurbiPatient']);
         })
         .error(function(data, status, headers, config){
-console.log('setting default config');
           var temp = {
             apiUrl: 'http://api.gokurbi.com/v1/',
             hdaApiUrl: 'http://hdaapi.gokurbi.com/v1/',
