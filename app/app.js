@@ -7,7 +7,7 @@ angular.element(document).ready(
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
 
-    $http.get('/configD2222ev.json')
+    $http.get('http://test.gokurbi.com/configDev.json')
     .success(function(data) {
 console.log('setting dev config');
         kurbiApp.constant('config', data);
@@ -15,7 +15,7 @@ console.log('setting dev config');
     })
     .error(function(data, status, headers, config){
 console.log('error in config');
-      $http.get('/configTest.json')
+      $http.get('http://test.gokurbi.com/configTest.json')
       .success(function(data){
 console.log('setting test config');
           kurbiApp.constant('config', data);
