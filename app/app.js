@@ -6,8 +6,8 @@ angular.element(document).ready(
   function() {
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
-console.log($http);
-    $http.get('/configDev.json')
+
+    $http.get('/configD2222ev.json')
     .success(function(data) {
 console.log('setting dev config');
         kurbiApp.constant('config', data);
