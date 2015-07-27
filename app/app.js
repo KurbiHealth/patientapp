@@ -55,7 +55,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     url: '/public',
     templateUrl: 'design/templates/publicMasterTemplate.html',
     data: {
-      css: ['design/css/normalize.css','design/css/webflow.css','design/css/gokurbi.webflow.css']
+      css: ['design/css/gokurbi.webflow.css','design/css/webflow.css','design/css/normalize.css']
     }
   })
 
