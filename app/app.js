@@ -1,5 +1,7 @@
 var kurbiApp = angular.module('kurbiPatient', 
-  ['ui.router', 'postDirectives','ui.WellnessSlider','CardsModule','ngFileUpload','ngCookies','ui.bootstrap','uiRouterStyles']);
+  ['ui.router', 'postDirectives','ui.WellnessSlider',
+  'CardsModule','ngFileUpload','ngCookies','ui.bootstrap',
+  'uiRouterStyles','pageslide-directive']);
 
 // LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
 angular.element(document).ready(

@@ -14,4 +14,16 @@ function ($state,$scope, posts, api, user, $q) {
 	$scope.firstName = user.firstName;
 	$scope.lastName = user.lastName;
 
+	// for PAGE SLIDER (html is in /globaldesign/templates/privateMaster.html)
+	$scope.pageslideChosen = false; // This will be binded using the ps-open attribute
+
+    $scope.togglePageslide = function(templatePath){
+        $scope.pageslideChosen = !$scope.pageslideChosen;
+        if(templatePath != '' && templatePath != null){
+        	$scope.pageSliderTemplateUrl = templatePath;
+        }
+    }
+
+    $scope.pageSliderTemplateUrl = '';
+
 }]);
