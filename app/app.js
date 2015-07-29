@@ -41,7 +41,7 @@ angular.element(document).ready(
 );
 
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
-	
+  
   $logProvider.debugEnabled(true);
 
   // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
@@ -49,7 +49,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.when('', '/public/home');
 
-	$stateProvider
+  $stateProvider
 
 // PUBLIC PAGES
 
@@ -80,8 +80,26 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   .state('private',{
     url: '/app',
-    templateUrl: 'design/templates/privateMasterTemplate.html', 
-    resolve: {authenticate: authenticate}
+    views: {
+      '': {
+        templateUrl: 'design/templates/privateMasterTemplate.html', 
+        resolve: {authenticate: authenticate}
+      },
+      'goalNew@private': {
+        templateUrl: 'modules/goal/templates/index.html'
+        //controller: 'GoalController'
+      },
+      'something@private': {
+        templateUrl: 'modules/goal/templates/index.html',
+        controller: 'GoalController'
+      },
+      'default@private': {
+        templateUrl: 'modules/feed/templates/add-post.html',
+        controller: 'GoalController'
+      } 
+    }
+    //templateUrl: 'design/templates/privateMasterTemplate.html', 
+    //resolve: {authenticate: authenticate}
   })
 
   .state('private.home', {
@@ -108,6 +126,24 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     url: '/progress-chart',
     templateUrl: 'modules/progress-chart/templates/index.html'
   })
+
+// PAGE SLIDER TEMPLATES
+ /* .state('pageslider', {
+  views: {
+      'goalNew': {
+        templateUrl: 'modules/goal/templates/index.html',
+        controller: 'GoalController'
+      },
+      'something': {
+        templateUrl: 'modules/goal/templates/index.html',
+        controller: 'GoalController'
+      },
+      'default': {
+        templateUrl: 'modules/feed/templates/add-post.html',
+        controller: 'GoalController'
+      } 
+    }
+  })*/
 
   ;
 
