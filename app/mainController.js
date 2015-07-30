@@ -1,6 +1,6 @@
-kurbiApp.controller('mainController', ['$state','$scope', 'posts', 
+kurbiApp.controller('mainController', ['$state','$rootScope','$scope', 'posts', 
 	'api', 'user', '$q','$aside',
-function ($state,$scope, posts, api, user, $q, $aside) {
+function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 
 	// =====================
 	// SIDEBAR ACCORDION(S)
@@ -11,10 +11,14 @@ function ($state,$scope, posts, api, user, $q, $aside) {
 	// LOGOUT FUNCTION
 	// =====================
 	$scope.logOut = function(){
+		$cookies = {};
+console.log($cookies);
 		user.loggedIn = false;
 		user.token = '';
 		user.password = '';
-		$cookies = {};
+user.getUser();
+console.log(user);
+console.log($rootScope);
 		$state.go('public.logInPage');
 	};
 
@@ -30,11 +34,11 @@ function ($state,$scope, posts, api, user, $q, $aside) {
 	// =====================
 	// Care Team List
 	api.careTeamInit().then(function(teammates){
-		$scope.careTeamList = teammates;
+		$rootScope.careTeamList = teammates;
 	});
 	// Goals List
 	api.goalsInit().then(function(goals){
-		$scope.goalsList = goals;
+		$rootScope.goalsList = goals;
 	});
 
 	// =====================

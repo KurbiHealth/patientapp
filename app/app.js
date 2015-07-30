@@ -80,26 +80,8 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   .state('private',{
     url: '/app',
-    views: {
-      '': {
-        templateUrl: 'design/templates/privateMasterTemplate.html', 
-        resolve: {authenticate: authenticate}
-      },
-      'goalNew@private': {
-        templateUrl: 'modules/goal/templates/index.html'
-        //controller: 'GoalController'
-      },
-      'something@private': {
-        templateUrl: 'modules/goal/templates/index.html',
-        controller: 'GoalController'
-      },
-      'default@private': {
-        templateUrl: 'modules/feed/templates/add-post.html',
-        controller: 'GoalController'
-      } 
-    }
-    //templateUrl: 'design/templates/privateMasterTemplate.html', 
-    //resolve: {authenticate: authenticate}
+    templateUrl: 'design/templates/privateMasterTemplate.html', 
+    resolve: {authenticate: authenticate}
   })
 
   .state('private.home', {
@@ -122,28 +104,15 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: 'app/templates/care-plan-index.html'
   })
   
-  .state('private.progress-chart', {
-    url: '/progress-chart',
-    templateUrl: 'modules/progress-chart/templates/index.html'
+  .state('private.live-chart', {
+    url: '/live-chart',
+    templateUrl: 'modules/live-chart/templates/index.html'
   })
 
-// PAGE SLIDER TEMPLATES
- /* .state('pageslider', {
-  views: {
-      'goalNew': {
-        templateUrl: 'modules/goal/templates/index.html',
-        controller: 'GoalController'
-      },
-      'something': {
-        templateUrl: 'modules/goal/templates/index.html',
-        controller: 'GoalController'
-      },
-      'default': {
-        templateUrl: 'modules/feed/templates/add-post.html',
-        controller: 'GoalController'
-      } 
-    }
-  })*/
+  .state('private.live-chart-list', {
+    url: '/live-chart-list',
+    templateUrl: 'modules/live-chart/templates/live-chart-list.html'
+  })
 
   ;
 
