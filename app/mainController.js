@@ -34,7 +34,6 @@ function ($state,$scope, posts, api, user, $q, $aside) {
 	});
 	// Goals List
 	api.goalsInit().then(function(goals){
-console.log(goals);
 		$scope.goalsList = goals;
 	});
 
