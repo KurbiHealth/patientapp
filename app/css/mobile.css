@@ -1,60 +1,38 @@
-/* Smartphones (portrait and landscape) --  --  --  --  -- - */
-@media only screen
-and (min-device-width : 320px) 
-and (max-device-width : 480px) { 
-/*--------------------------------------------
-STYLES
----------------------------------------------*/
+/* ==========================================================================
+	#Media Queries
+========================================================================== */
+/* small desktops */
+@media(max-width: 1199px) {
+	
+	p.name { display: none; }
+}
 
-} 
- 
-/* Smartphones (landscape) --  --  --  --  -- - */
-@media only screen
-and (min-width : 321px) { 
-/*--------------------------------------------
-STYLES
----------------------------------------------*/
-
-} 
- 
-/* Smartphones (portrait) --  --  --  --  -- - */
-@media only screen
-and (max-width : 320px) { 
-/*--------------------------------------------
-STYLES
----------------------------------------------*/
- 
-} 
-   
-/* iPads (portrait and landscape) --  --  --  --  -- - */
-@media only screen
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) { 
-/*--------------------------------------------
-STYLES
----------------------------------------------*/
-
-} 
- 
- 
-/* IPADS (portrait) --  --  --  --  -- - */
-@media only screen
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : portrait) { 
-/*--------------------------------------------
-STYLES
----------------------------------------------*/
+/* tablets */
+@media(max-width: 991px) {
 
 }
 
-/* IPADS (landscape) --  --  --  --  -- - */
-@media only screen
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) 
-and (orientation : landscape) { 
+/* mobile */
+@media(max-width: 767px) {
+
+
 /*--------------------------------------------
-STLYES
+HEADER
 ---------------------------------------------*/
+#profile { display: none; }
+#mobile-nav-btn { display: block; }
+#mobile-nav-btn i.fa.fa-bars {
+	position: absolute;
+	top: 19px;
+	right: 20px;
+	font-size: 32px;
+	color: #ffffff;
+	cursor: pointer;
+}
+/*body.snapjs-right #drawer { display: block; right: 0; }*/
+#navbar { display: none; }
+#post-box { display: none; }
+#logo { top: 15px; }
+#mobile-post-box { display: block; }
 
 }

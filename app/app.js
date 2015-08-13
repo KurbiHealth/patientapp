@@ -1,6 +1,6 @@
 var kurbiApp = angular.module('kurbiPatient', 
   ['ui.router', 'postDirectives','ui.WellnessSlider',
-  'CardsModule','ngFileUpload','ngCookies','ui.bootstrap']);
+  'CardsModule','ngFileUpload','ngCookies','ui.bootstrap', 'snap']);
 
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 	

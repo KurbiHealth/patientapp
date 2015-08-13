@@ -16,6 +16,11 @@ input, textarea, select, button {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+/*body #drawer {
+	display: none;
+	right: -265px;
+}*/
+
 /*--------------------------------------------
 HEADER
 ---------------------------------------------*/
@@ -29,7 +34,8 @@ HEADER
 }
 
 #logo {
-	text-align: center;
+	position: absolute;
+	left: 20px;
 }
 
 #logo a img {
@@ -37,7 +43,7 @@ HEADER
 }
 
 #header ul.dropdown-menu li a {
-	padding: 0 15px;
+	padding: 5px 15px;
 	font-size: 13px;
 	color: #333333;
 }
@@ -50,6 +56,10 @@ HEADER
 #header .dropdown-menu .divider {
 	margin: 5px 0;
 }  
+
+#mobile-nav-btn {
+	display: none;
+}
 
 #navbar {
 	position: relative;
@@ -73,6 +83,11 @@ BODY
 /*--------------------------------------------
 POSTS
 ---------------------------------------------*/
+#mobile-post-box {
+	margin: 10px 0 20px 0;
+	display: none;
+}
+
 .post-item {
 	position: relative;
 	margin-top: 50px;
@@ -182,29 +197,22 @@ SIDEBAR
 	cursor: pointer;
 }
 
-#profile a {
+#profile {
+	position: absolute;
+	right: 20px;
+}
+
+#profile p a {
+	padding-right: 8px;
 	font-size: 16px;
-	line-height: 40px;
+	line-height: 48px;
 	color: #ffffff;
 }
 
 #profile i.fa.fa-cog {
 	font-size: 24px;
-	line-height: 40px;
-}
-
-#main-nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-#main-nav ul li a, #main-nav ul li a:visited {
-	display: block;
-	padding: 10px 0;
-	font-size: 14px;
-	font-weight: bold;
-	color: #333333;
+	line-height: 44px;
+	color: #ffffff;
 }
 
 input.checkbox {
@@ -319,7 +327,7 @@ COLORS
 PROFILE IMAGES
 ---------------------------------------------*/
 img.profile-small {
-	margin-right: 10px;
+	margin-right: 5px;
 	max-width: 40px;
 	max-height: 40px;
 	-webkit-border-radius: 20px;

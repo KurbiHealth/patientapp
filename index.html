@@ -8,6 +8,7 @@
 	
 	<!-- CSS -->
 	<link href="app/css/bootstrap.min.css" rel="stylesheet">
+	<link href="app/css/angular-snap.min.css" rel="stylesheet">
 	<link href="app/css/custom.css" rel="stylesheet">
 	<link href="app/css/mobile.css" rel="stylesheet">
 	<link rel="stylesheet" href="design/css/material-design-iconic-font.min.css">
@@ -24,6 +25,8 @@
 	<script src="libraries/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
 	<script src="libraries/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-cookies.js"></script>
+	<script src="js_dependencies/angular-snap.min.js"></script>
+	<script src="js_dependencies/snap.min.js"></script>
 
 	<!-- JS - ANGULAR -->
 	<script src="app/app.js" type="text/javascript"></script>
@@ -62,12 +65,21 @@
 </head>
 
 <body ng-controller="mainController">
-
-	<div ui-view>
+	
+	<div id="drawer" snap-drawer="right" style="background: #000;">
+	  <ul>
+	  	<li><a href="#">Settings</a></li>
+	  	<li><a href="#">Profile</a></li>
+	    <li role="separator" class="divider"></li>
+	    <li><a href="#">Logout</a></li>
+	  </ul>
+	</div>
+	
+	<div snap-content ui-view>
 		<p class="loading-spinner">
 			<img src="design/img/loading_spinner.gif" />
 		</p>
 	</div>
-
+	
 </body>
 </html>
