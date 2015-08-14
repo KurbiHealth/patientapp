@@ -1,9 +1,45 @@
 var kurbiApp = angular.module('kurbiPatient', 
-  ['ui.router', 'postDirectives','ui.WellnessSlider',
-  'CardsModule','ngFileUpload','ngCookies','ui.bootstrap', 'snap']);
+  ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload','ngCookies','ui.bootstrap','uiRouterStyles','ngAside']);
+
+// LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
+angular.element(document).ready(
+  function() {
+    var initInjector = angular.injector(['ng']);
+    var $http = initInjector.get('$http');
+
+    $http.get('configDev.json')
+    .success(function(data, status) {
+        kurbiApp.constant('config', data);
+        angular.bootstrap(document, ['kurbiPatient']);
+    })
+    .error(function(data, status, headers, config){
+      $http.get('configTest.json')
+      .success(function(data, status){
+          kurbiApp.constant('config', data);
+          angular.bootstrap(document, ['kurbiPatient']);
+      })
+      .error(function(data, status, headers, config){
+        $http.get('config.json')
+        .success(function(data){
+            kurbiApp.constant('config', data);
+            angular.bootstrap(document, ['kurbiPatient']);
+        })
+        .error(function(data, status, headers, config){
+          var temp = {
+            apiUrl: 'http://api.gokurbi.com/v1/',
+            hdaApiUrl: 'http://hdaapi.gokurbi.com/v1/',
+            environment: 'prod'
+          }
+          kurbiApp.constant('config', temp);
+          angular.bootstrap(document, ['kurbiPatient']);
+        }); // end of 3rd .error
+      }); // end of 2nd .error
+    }); // end of 1st .error
+  }
+);
 
 kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
-	
+  
   $logProvider.debugEnabled(true);
 
   // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
@@ -11,13 +47,16 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.when('', '/public/home');
 
-	$stateProvider
+  $stateProvider
 
 // PUBLIC PAGES
 
   .state('public',{
     url: '/public',
-    templateUrl: 'design/templates/publicMasterTemplate.html'
+    templateUrl: 'design/templates/publicMasterTemplate.html',
+    data: {
+      css: ['design/css/gokurbi.webflow.css','design/css/webflow.css','design/css/normalize.css']
+    }
   })
 
   .state('public.home',{
@@ -60,12 +99,17 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
   .state('private.care-plan', {
     url: '/care-plan',
-    templateUrl: 'app/templates/care_plan_index.html'
+    templateUrl: 'app/templates/care-plan-index.html'
   })
   
-  .state('private.progress-chart', {
-    url: '/progress-chart',
-    templateUrl: 'app/templates/progress_chart_index.html'
+  .state('private.live-chart', {
+    url: '/live-chart',
+    templateUrl: 'modules/live-chart/templates/index.html'
+  })
+
+  .state('private.live-chart-list', {
+    url: '/live-chart-list',
+    templateUrl: 'modules/live-chart/templates/live-chart-list.html'
   })
 
   ;
@@ -87,8 +131,8 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
 
 });
 
-kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state',
-function ($rootScope, posts, api, user, $q, $state){
+kurbiApp.run(['$rootScope', 'posts', 'api', 'user', '$q', '$state','$http',
+function ($rootScope, posts, api, user, $q, $state,$http){
 
   // FOR DEBUGGING UI-ROUTER ($state)
   // $rootScope.$on("$stateChangeError", console.log.bind(console));
