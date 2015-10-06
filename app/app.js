@@ -55,7 +55,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     url: '/public',
     templateUrl: 'design/templates/publicMasterTemplate.html',
     data: {
-      css: ['design/css/gokurbi.webflow.css','design/css/webflow.css','design/css/normalize.css']
+      css: ['design/css/public/kurbi.webflow.css','design/css/public/webflow.css','design/css/public/normalize.css']
     }
   })
 
@@ -67,6 +67,11 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
   .state('public.ourstory', {
     url: '/our-story',
     templateUrl: 'design/templates/publicOurstory.html'
+  })
+
+  .state('public.freeaccess', {
+    url: '/free-access',
+    templateUrl: 'design/templates/publicFreeaccess.html'
   })
 
   .state('public.logInPage',{
