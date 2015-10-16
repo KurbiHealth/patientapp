@@ -1,5 +1,6 @@
 var kurbiApp = angular.module('kurbiPatient', 
-  ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload','ngCookies','ui.bootstrap','uiRouterStyles','ngAside']);
+  ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload',
+  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside']);
 
 // LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
 angular.element(document).ready(
@@ -45,20 +46,23 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
   // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
   // https://github.com/angular-ui/ui-router/wiki#resolve
 
-  $urlRouterProvider.when('', '/public/home');
+  $urlRouterProvider.when('', '/public/login');
 
   $stateProvider
 
 // PUBLIC PAGES
 
-  .state('public',{
-    url: '/public',
-    templateUrl: 'design/templates/publicMasterTemplate.html',
+  /* this code was removed from "state('public'," due to webflow change  
     data: {
       css: ['design/css/public/kurbi.webflow.css','design/css/public/webflow.css','design/css/public/normalize.css']
     }
+  */
+  .state('public',{
+    url: '/public',
+    templateUrl: 'design/templates/publicMasterTemplate.html'
   })
 
+/*
   .state('public.home',{
     url: '/home',
     templateUrl: 'design/templates/publicHome.html'
@@ -73,7 +77,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     url: '/free-access',
     templateUrl: 'design/templates/publicFreeaccess.html'
   })
-
+*/
   .state('public.logInPage',{
     url: '/login',
     templateUrl: 'design/templates/publicLogin.html'

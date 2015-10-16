@@ -3,6 +3,34 @@ kurbiApp.controller('mainController', ['$state','$rootScope','$scope', 'posts',
 function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 
 	// =====================
+	// GLOBAL VARIABLES 
+	// =====================
+
+	// USER VALUES
+	user.getUser();
+	$scope.firstName = user.firstName;
+	$scope.lastName = user.lastName;
+
+	// LISTS
+	// Care Team List
+	api.careTeamInit().then(function(teammates){
+		$rootScope.careTeamList = teammates;
+	});
+	// Goals List
+	api.goalsInit().then(function(goals){
+		$rootScope.goalsList = goals;
+	});
+
+	// LAST
+	$scope.templast = false;
+var kurbiGlobal = {};
+	kurbiGlobal.templast = false;
+console.log('$rootScope',$rootScope);
+console.log('kurbiGlobal',kurbiGlobal);
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	// =====================
 	// SIDEBAR ACCORDION(S)
 	// =====================
 	$scope.isCollapsed = false;
@@ -21,25 +49,6 @@ console.log(user);
 console.log($rootScope);
 		$state.go('public.logInPage');
 	};
-
-	// =====================
-	// GLOBAL USER VALUES
-	// =====================
-	user.getUser();
-	$scope.firstName = user.firstName;
-	$scope.lastName = user.lastName;
-
-	// =====================
-	// INITIALIZE LISTS
-	// =====================
-	// Care Team List
-	api.careTeamInit().then(function(teammates){
-		$rootScope.careTeamList = teammates;
-	});
-	// Goals List
-	api.goalsInit().then(function(goals){
-		$rootScope.goalsList = goals;
-	});
 
 	// =====================
 	// PAGE SLIDER
