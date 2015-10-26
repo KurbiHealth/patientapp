@@ -21,12 +21,12 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 		$rootScope.goalsList = goals;
 	});
 
-	// LAST
+	// LAST - used in Cards controller & directive
 	$scope.templast = false;
 var kurbiGlobal = {};
 	kurbiGlobal.templast = false;
-console.log('$rootScope',$rootScope);
-console.log('kurbiGlobal',kurbiGlobal);
+//console.log('$rootScope',$rootScope);
+//console.log('kurbiGlobal',kurbiGlobal);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
