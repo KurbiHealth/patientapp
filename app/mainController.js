@@ -102,5 +102,6 @@ console.log($rootScope);
         }
       }).result.then(postClose, postClose);
     }
-
+    
+    
 }]);
