@@ -62,22 +62,6 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
     templateUrl: 'design/templates/publicMasterTemplate.html'
   })
 
-/*
-  .state('public.home',{
-    url: '/home',
-    templateUrl: 'design/templates/publicHome.html'
-  })
-
-  .state('public.ourstory', {
-    url: '/our-story',
-    templateUrl: 'design/templates/publicOurstory.html'
-  })
-
-  .state('public.freeaccess', {
-    url: '/free-access',
-    templateUrl: 'design/templates/publicFreeaccess.html'
-  })
-*/
   .state('public.logInPage',{
     url: '/login',
     templateUrl: 'design/templates/publicLogin.html'

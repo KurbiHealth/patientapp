@@ -23,12 +23,29 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 
 	// LAST - used in Cards controller & directive
 	$scope.templast = false;
-var kurbiGlobal = {};
+	var kurbiGlobal = {};
 	kurbiGlobal.templast = false;
-//console.log('$rootScope',$rootScope);
-//console.log('kurbiGlobal',kurbiGlobal);
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	$scope.journalEntries = [];
+
+	api.getJournalCards($q.defer())
+	.then(
+		function(data){
+			if(data[0].today == false){
+                var today = new Date;
+                data.unshift({
+                  date: today.toDateString(),
+                  type: 'groupStart'
+                });
+            }
+            $scope.journalEntries = data;
+		},
+		function(error){
+			console.log(error);
+		}
+	);
 
 	// =====================
 	// SIDEBAR ACCORDION(S)
@@ -51,7 +68,7 @@ console.log($rootScope);
 	};
 
 	// =====================
-	// PAGE SLIDER
+	// PAGE SLIDER / FLYOUT
 	// =====================
     $scope.asideState = {
       open: false
