@@ -26,6 +26,12 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	var kurbiGlobal = {};
 	kurbiGlobal.templast = false;
 
+	// Symptoms List
+	api.getSymptomList($q.defer())
+	.then(function(symptoms){
+		$scope.symptoms = symptoms;
+	});
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	$scope.journalEntries = [];
