@@ -10,48 +10,52 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	user.getUser();
 	$scope.firstName = user.firstName;
 	$scope.lastName = user.lastName;
-
+	
 	// LISTS
-	// Care Team List
-	api.careTeamInit().then(function(teammates){
-		$rootScope.careTeamList = teammates;
-	});
-	// Goals List
-	api.goalsInit().then(function(goals){
-		$rootScope.goalsList = goals;
-	});
+	if(user.loggedIn !== true){ // for some reason doing (user.loggedIn == true) doesn't work
+	
+		// Care Team List
+		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
+		api.careTeamInit().then(function(teammates){
+			$rootScope.careTeamList = teammates;
+		});
 
-	// LAST - used in Cards controller & directive
-	$scope.templast = false;
-	var kurbiGlobal = {};
-	kurbiGlobal.templast = false;
+		// Goals List
+		api.goalsInit().then(function(goals){
+			$rootScope.goalsList = goals;
+		});
 
-	// Symptoms List
-	api.getSymptomList($q.defer())
-	.then(function(symptoms){
-		$scope.symptoms = symptoms;
-	});
+		// LAST - used in Cards controller & directive
+		$scope.templast = false;
+		var kurbiGlobal = {};
+		kurbiGlobal.templast = false;
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		// Symptoms List
+		api.getSymptomList($q.defer())
+		.then(function(symptoms){
+			$scope.symptoms = symptoms;
+		});
 
-	$scope.journalEntries = [];
+		// Journal Entries
+		$scope.journalEntries = [];
 
-	api.getJournalCards($q.defer())
-	.then(
-		function(data){
-			if(data[0].today == false){
-                var today = new Date;
-                data.unshift({
-                  date: today.toDateString(),
-                  type: 'groupStart'
-                });
-            }
-            $scope.journalEntries = data;
-		},
-		function(error){
-			console.log(error);
-		}
-	);
+		api.getJournalCards($q.defer())
+		.then(
+			function(data){
+				if(data[0].today == false){
+	                var today = new Date;
+	                data.unshift({
+	                  date: today.toDateString(),
+	                  type: 'groupStart'
+	                });
+	            }
+	            $scope.journalEntries = data;
+			},
+			function(error){
+				console.log(error);
+			}
+		);
+	}
 
 	// =====================
 	// SIDEBAR ACCORDION(S)
