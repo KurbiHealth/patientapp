@@ -10,6 +10,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	user.getUser();
 	$scope.firstName = user.firstName;
 	$scope.lastName = user.lastName;
+	$scope.avatarImage = '/design/user_images/' + user.imageFileName;
 	
 	// LISTS
 	if(user.loggedIn !== true){ // for some reason doing (user.loggedIn == true) doesn't work
