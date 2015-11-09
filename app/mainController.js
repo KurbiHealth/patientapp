@@ -6,6 +6,9 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	// GLOBAL VARIABLES 
 	// =====================
 
+	// GOAL/PATH VALUES
+	$rootScope.currentGoalActivity = {};
+
 	// USER VALUES
 	user.getUser();
 	$scope.firstName = user.firstName;
@@ -24,6 +27,12 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 		// Goals List
 		api.goalsInit().then(function(goals){
 			$rootScope.goalsList = goals;
+		});
+
+		// Goals Activities List
+		api.getGoalActivitiesList()
+		.then(function(list){
+			$rootScope.goalActivitiesList = list;
 		});
 
 		// LAST - used in Cards controller & directive
@@ -81,18 +90,18 @@ console.log($rootScope);
 	// =====================
 	// PAGE SLIDER / FLYOUT
 	// =====================
-    $scope.asideState = {
+    $rootScope.asideState = {
       open: false
     };
     
-    $scope.openAside = function(position, backdrop, template) {
-      $scope.asideState = {
+    $rootScope.openAside = function(position, backdrop, template) {
+      $rootScope.asideState = {
         open: true,
         position: position
       };
       
       function postClose() {
-        $scope.asideState.open = false;
+        $rootScope.asideState.open = false;
       }
       
       $aside.open({

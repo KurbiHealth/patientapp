@@ -1,6 +1,6 @@
 var kurbiApp = angular.module('kurbiPatient', 
   ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload',
-  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside']);
+  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside','angular-cloudinary','app.Components.InputTypeFile']); // ngImgCrop
 
 // LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
 angular.element(document).ready(
@@ -39,9 +39,15 @@ angular.element(document).ready(
   }
 );
 
-kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider) {
+kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloudinaryProvider) {
   
   $logProvider.debugEnabled(true);
+
+  cloudinaryProvider.config({
+    upload_endpoint: 'https://api.cloudinary.com/v1_1/', // default
+    cloud_name: 'kurbi', // required
+    upload_preset: 'am044ys5' // optional
+  });
 
   // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
   // https://github.com/angular-ui/ui-router/wiki#resolve
