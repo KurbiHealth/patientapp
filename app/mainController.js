@@ -65,6 +65,11 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 				console.log(error);
 			}
 		);
+		$scope.topSymptomsLimit = 5;
+		$scope.topSymptomsOrder = 'count';
+		$scope.topDescending = true;
+		$scope.topSymptoms = api.symptomsObject.topSymptomsArray;
+		$scope.setTopSeverityStyles();
 	}
 
 	// =====================
@@ -121,7 +126,25 @@ console.log($rootScope);
           };
         }
       }).result.then(postClose, postClose);
-    }
-    
-    
+    };
+
+    $scope.setTopSeverityStyles = function(){
+    	for(var symp in $scope.topSymptoms){
+    		var averageSeverity = $scope.topSymptoms[symp].avgSev;
+    		var symptomName = $scope.topSymptoms[symp].name;
+
+    		if(averageSeverity >= 0 && averageSeverity < 4){
+    			$scope.topSeverityColorObj[symptomName] = 'green';
+    		}
+    		else if(averageSeverity >= 4 && averageSeverity < 8){
+    			$scope.topSeverityColorObj[symptomName] = '#ffce00';
+    		}
+    		else if(averageSeverity >= 8 && averageSeverity < 12){
+    			$scope.topSeverityColorObj[symptomName] = 'red';
+    		}
+    		else{
+    			$scope.topSeverityColorObj[symptomName] = 'gray';
+    		}
+    	}
+    };
 }]);
