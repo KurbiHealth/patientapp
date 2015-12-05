@@ -1,6 +1,7 @@
 var kurbiApp = angular.module('kurbiPatient', 
   ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload',
-  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside','angular-cloudinary','app.Components.InputTypeFile']); // ngImgCrop
+  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside','angular-cloudinary','app.Components.InputTypeFile',
+  'angularSpinner']); // ngImgCrop
 
 // LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
 angular.element(document).ready(
@@ -94,6 +95,11 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
   .state('private.goals', {
     url: '/goals',
     templateUrl: 'modules/goal/templates/index.html'
+  })
+  
+  .state('private.path', {
+    url: '/path',
+    templateUrl: 'modules/goal/templates/path-detail.html'
   })
 
   .state('private.care-plan', {
