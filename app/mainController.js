@@ -21,7 +21,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 		// Care Team List
 		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
 		api.careTeamInit().then(function(teammates){
-			$rootScope.careTeamList = teammates;
+			//$rootScope.careTeamList = teammates;
 		});
 
 		// Goals List
