@@ -14,7 +14,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	$scope.firstName = user.firstName;
 	$scope.lastName = user.lastName;
 	$scope.avatarImage = '/design/user_images/' + user.imageFileName;
-	
+
 	// LISTS
 	if(user.loggedIn !== true){ // for some reason doing (user.loggedIn == true) doesn't work
 	
@@ -65,6 +65,11 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 				console.log(error);
 			}
 		);
+		$scope.topSymptomsLimit = 5;
+		$scope.topSymptomsOrder = 'count';
+		$scope.topDescending = true;
+		$scope.topSymptoms = api.symptomsObject.topSymptomsArray;
+		$scope.topSeverityColorObj = api.symptomsObject.topSeverityColorObj;
 	}
 
 	// =====================
@@ -121,7 +126,5 @@ console.log($rootScope);
           };
         }
       }).result.then(postClose, postClose);
-    }
-    
-    
+    };
 }]);

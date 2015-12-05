@@ -1,6 +1,7 @@
 var kurbiApp = angular.module('kurbiPatient', 
   ['ui.router', 'postDirectives','ui.WellnessSlider', 'CardsModule','ngFileUpload',
-  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside','angular-cloudinary','app.Components.InputTypeFile']); // ngImgCrop
+  'ngCookies','ui.bootstrap','uiRouterStyles','ngAside','angular-cloudinary','app.Components.InputTypeFile',
+  'angularSpinner']); // ngImgCrop
 
 // LOAD CONFIGURATION FILE (ALLOW FOR DEV OVERRIDE)
 angular.element(document).ready(
@@ -108,12 +109,9 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
   
   .state('private.live-chart', {
     url: '/live-chart',
-    templateUrl: 'modules/live-chart/templates/index.html'
-  })
-
-  .state('private.live-chart-list', {
-    url: '/live-chart-list',
-    templateUrl: 'modules/live-chart/templates/live-chart-list.html'
+    templateUrl: 'modules/live-chart/templates/temp-live-chart.html'
+    // templateUrl: 'modules/live-chart/templates/index.html'
+    // templateUrl: 'modules/live-chart/templates/live-chart-list.html'
   })
 
   ;
