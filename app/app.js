@@ -95,6 +95,11 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
     url: '/goals',
     templateUrl: 'modules/goal/templates/index.html'
   })
+  
+  .state('private.path', {
+    url: '/path',
+    templateUrl: 'modules/goal/templates/path-detail.html'
+  })
 
   .state('private.care-plan', {
     url: '/care-plan',
