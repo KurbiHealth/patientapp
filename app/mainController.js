@@ -65,6 +65,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 				console.log(error);
 			}
 		);
+		api.symptomsObject.initSystemsObject();
 		$scope.topSymptomsLimit = 5;
 		$scope.topSymptomsOrder = 'count';
 		$scope.topDescending = true;
