@@ -17,14 +17,15 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	$scope.userLoggedIn = user.loggedIn;
 
 	// LISTS
-console.log(user);
-console.log($scope);
 	if(user.loggedIn === true){
-console.log('calling init functions');	
+	
 		// Care Team List
 		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
 		api.careTeamInit().then(function(teammates){
 			$rootScope.careTeamList = teammates;
+		
+		// Posts 
+			api.postsInit($rootScope,teammates);
 		});
 
 		// Goals List
@@ -68,6 +69,9 @@ console.log('calling init functions');
 				console.log(error);
 			}
 		);
+
+		// TOP SYMPTOMS (SIDEBAR)
+		api.symptomsObject.initSystemsObject();
 		$scope.topSymptomsLimit = 5;
 		$scope.topSymptomsOrder = 'count';
 		$scope.topDescending = true;
