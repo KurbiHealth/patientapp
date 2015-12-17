@@ -78,6 +78,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
 
   .state('private',{
     url: '/app',
+    controller: 'mainController',
     templateUrl: 'design/templates/privateMasterTemplate.html', 
     resolve: {authenticate: authenticate}
   })
@@ -121,7 +122,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
     if(user.loggedIn === true){
       deferred.resolve();
     }else{
-      if($cookies.token != ''){
+      if(typeof $cookies.token != 'undefined' && $cookies.token != ''){
         user.loggedIn = true;
         deferred.resolve();
       }else{

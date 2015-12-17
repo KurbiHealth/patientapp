@@ -14,14 +14,18 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	$scope.firstName = user.firstName;
 	$scope.lastName = user.lastName;
 	$scope.avatarImage = '/design/user_images/' + user.imageFileName;
+	$scope.userLoggedIn = user.loggedIn;
 
 	// LISTS
-	if(user.loggedIn !== true){ // for some reason doing (user.loggedIn == true) doesn't work
+	if(user.loggedIn === true){
 	
 		// Care Team List
 		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
 		api.careTeamInit().then(function(teammates){
 			$rootScope.careTeamList = teammates;
+		
+		// Posts 
+			api.postsInit($rootScope,teammates);
 		});
 
 		// Goals List
@@ -65,6 +69,8 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 				console.log(error);
 			}
 		);
+
+		// TOP SYMPTOMS (SIDEBAR)
 		api.symptomsObject.initSystemsObject();
 		$scope.topSymptomsLimit = 5;
 		$scope.topSymptomsOrder = 'count';
@@ -77,6 +83,33 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	// SIDEBAR ACCORDION(S)
 	// =====================
 	$scope.isCollapsed = false;
+
+	// =====================
+	// LOG IN FUNCTION
+	// =====================
+	
+
+	/*$scope.login = function(){
+console.log()
+		promise = $q.defer();
+		api.logIn(promise,$scope.loginFormFields.email,
+			$scope.loginFormFields.password).then(
+			function(result){
+				// add values to user service
+				if(user){
+					user.saveUser(result.user);
+					user.setToken(result.token);
+					// redirect to home
+					$state.go('private.home'); 
+				}else{
+					// user service not available, means this needs to fail
+					// TODO add a flash message to appear to user
+					$state.go('public.logInPage');
+				}
+			}
+		);
+
+	};*/
 
 	// =====================
 	// LOGOUT FUNCTION
@@ -128,4 +161,5 @@ console.log($rootScope);
         }
       }).result.then(postClose, postClose);
     };
+
 }]);
