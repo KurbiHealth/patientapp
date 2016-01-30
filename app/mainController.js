@@ -63,6 +63,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	                  type: 'groupStart'
 	                });
 	            }
+	            console.log("MAIN CONTROLLER LOAD: ", data);
 	            $scope.journalEntries = data;
 			},
 			function(error){
