@@ -1,6 +1,6 @@
 kurbiApp.controller('mainController', ['$state','$rootScope','$scope', 'posts', 
-	'api', 'user', '$q','$aside',
-function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
+	'api', 'user', '$q','$aside','journalEntriesSvc',
+function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntriesSvc) {
 
 	// =====================
 	// GLOBAL VARIABLES 
@@ -51,9 +51,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 		});
 
 		// Journal Entries
-		$scope.journalEntries = [];
-
-		api.getJournalCards($q.defer())
+		journalEntriesSvc.init()
 		.then(
 			function(data){
 				if(data[0].today == false){
@@ -65,6 +63,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside) {
 	            }
 	            console.log("MAIN CONTROLLER LOAD: ", data);
 	            $scope.journalEntries = data;
+	 console.log($scope.journalEntries);
 			},
 			function(error){
 				console.log(error);

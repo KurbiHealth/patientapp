@@ -78,7 +78,6 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
 
   .state('private',{
     url: '/app',
-    controller: 'mainController',
     templateUrl: 'design/templates/privateMasterTemplate.html', 
     resolve: {authenticate: authenticate}
   })
