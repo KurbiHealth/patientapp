@@ -53,7 +53,7 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
   // https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-set-up-a-defaultindex-child-state
   // https://github.com/angular-ui/ui-router/wiki#resolve
 
-  $urlRouterProvider.when('', '/public/login');
+//  $urlRouterProvider.when('', '/public/login');
 
   $stateProvider
 
