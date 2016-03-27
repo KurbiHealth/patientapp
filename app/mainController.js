@@ -63,7 +63,6 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 	            }
 	            console.log("MAIN CONTROLLER LOAD: ", data);
 	            $scope.journalEntries = data;
-	 console.log($scope.journalEntries);
 			},
 			function(error){
 				console.log(error);
