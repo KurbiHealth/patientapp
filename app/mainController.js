@@ -76,7 +76,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 		            	}
 		            }	            	
 	            }
-	 //console.log($scope.journalEntries);
+	            $scope.journalEntries = data;
 			},
 			function(error){
 				console.log(error);
