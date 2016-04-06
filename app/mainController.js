@@ -54,16 +54,29 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 		journalEntriesSvc.init()
 		.then(
 			function(data){
+				//console.log("MAIN CONTROLLER LOAD: ", data);
 				if(data[0].today == false){
 	                var today = new Date;
 	                data.unshift({
 	                  date: today.toDateString(),
 	                  type: 'groupStart'
 	                });
+	                $scope.journalEntries = data;
+		            if($scope.journalEntries[1].components !== undefined && $scope.journalEntries[1].components.length > 0){
+		            	for(component in $scope.journalEntries[1].components){
+		            		$scope.journalEntries[1].components[component].id = $scope.journalEntries[1].components[component].details.id;
+		            	}
+		            }	                
 	            }
-	            console.log("MAIN CONTROLLER LOAD: ", data);
-	            $scope.journalEntries = data;
-	 console.log($scope.journalEntries);
+	            else{
+	            	$scope.journalEntries = data;
+		            if($scope.journalEntries[0].components !== undefined && $scope.journalEntries[0].components.length > 0){
+		            	for(component in $scope.journalEntries[0].components){
+		            		$scope.journalEntries[0].components[component].id = $scope.journalEntries[0].components[component].details.id;
+		            	}
+		            }	            	
+	            }
+	 //console.log($scope.journalEntries);
 			},
 			function(error){
 				console.log(error);
