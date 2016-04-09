@@ -40,9 +40,12 @@ angular.element(document).ready(
   }
 );
 
-kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloudinaryProvider) {
+kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloudinaryProvider, $httpProvider) {
   
   $logProvider.debugEnabled(true);
+
+  //$httpProvider.defaults.useXDomain = true;
+  //delete $httpProvider.defaults.headers.common['X-Requested-With']; 
 
   cloudinaryProvider.config({
     upload_endpoint: 'https://api.cloudinary.com/v1_1/', // default
