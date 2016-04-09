@@ -103,7 +103,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 	// LOGOUT FUNCTION
 	// =====================
 	$scope.logOut = function(){
-		$cookies.remove();
+		$cookies = {};
 console.log($cookies);
 		user.loggedIn = false;
 		user.token = '';
