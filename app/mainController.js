@@ -112,7 +112,6 @@ console.log($cookies);
 		user.getUser();
 console.log($cookies);
 console.log(user);
-console.log($rootScope);
 		$state.go('public.logInPage');
 	};
 
