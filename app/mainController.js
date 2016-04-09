@@ -108,7 +108,8 @@ console.log($cookies);
 		user.loggedIn = false;
 		user.token = '';
 		user.password = '';
-user.getUser();
+
+		user.getUser();
 console.log($cookies);
 console.log(user);
 console.log($rootScope);
