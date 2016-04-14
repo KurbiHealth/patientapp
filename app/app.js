@@ -40,7 +40,8 @@ angular.element(document).ready(
   }
 );
 
-kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloudinaryProvider, $httpProvider) {
+kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloudinaryProvider, 
+  $httpProvider) {
   
   $logProvider.debugEnabled(true);
 
@@ -81,7 +82,8 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
 
   .state('private',{
     url: '/app',
-    templateUrl: 'design/templates/privateMasterTemplate.html', 
+    templateUrl: 'design/templates/privateMasterTemplate.html',
+    controller: 'mainController',
     resolve: {authenticate: authenticate}
   })
 
@@ -120,18 +122,11 @@ kurbiApp.config(function($logProvider, $stateProvider, $urlRouterProvider, cloud
   ;
 
   function authenticate ($q, user, $cookies) {
-    var deferred = $q.defer();
-    if(user.loggedIn === true){
-      deferred.resolve();
-    }else{
-      if(typeof $cookies.token != 'undefined' && $cookies.token != ''){
-        user.loggedIn = true;
-        deferred.resolve();
-      }else{
-        deferred.reject('not logged in');
-      }
-    }
-    return deferred.promise;
+    // the user.authenticated() function returns a promise, so that can be passed right back
+    // to resolve. When the promise gets rejected, it triggers the $rootScope.$on('$stateChangeError',...)
+    // below in kurbiApp.run().
+    var authPromise = user.authenticated();
+    return authPromise;
   }
 
 });

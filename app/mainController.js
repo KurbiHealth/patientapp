@@ -9,15 +9,14 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 	// GOAL/PATH VALUES
 	$rootScope.currentGoalActivity = {};
 
-	// USER VALUES
-	user.getUser();
-	$scope.firstName = user.firstName;
-	$scope.lastName = user.lastName;
-	$scope.avatarImage = '/design/user_images/' + user.imageFileName;
-	$scope.userLoggedIn = user.loggedIn;
-
 	// LISTS
-	if(user.loggedIn === true){
+	user.authenticated().then(function(){
+
+		// USER VALUES
+		$scope.firstName = user.get('firstName');
+		$scope.lastName = user.get('lastName');
+		$scope.avatarImage = '/design/user_images/' + user.get('imageFileName');
+		$scope.userLoggedIn = user.get('loggedIn');
 	
 		// Care Team List
 		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
@@ -90,7 +89,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 		$scope.topDescending = true;
 		$scope.topSymptoms = api.symptomsObject.topSymptomsArray;
 		$scope.topSeverityColorObj = api.symptomsObject.topSeverityColorObj;
-	}
+	});
 
 	// =====================
 	// SIDEBAR ACCORDION(S)
@@ -102,18 +101,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 	// =====================
 	// LOGOUT FUNCTION
 	// =====================
-	$scope.logOut = function(){
-		$cookies = {};
-console.log($cookies);
-		user.loggedIn = false;
-		user.token = '';
-		user.password = '';
-
-		user.getUser();
-console.log($cookies);
-console.log(user);
-		$state.go('public.logInPage');
-	};
+	$scope.logOut = user.logOut;
 
 	// =====================
 	// PAGE SLIDER / FLYOUT
