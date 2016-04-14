@@ -53,7 +53,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 		journalEntriesSvc.init()
 		.then(
 			function(data){
-				//console.log("MAIN CONTROLLER LOAD: ", data);
+//console.log("MAIN CONTROLLER LOAD: ", data);
 				if(data[0].today == false){
 	                var today = new Date;
 	                data.unshift({
