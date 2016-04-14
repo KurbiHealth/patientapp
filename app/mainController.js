@@ -1,6 +1,8 @@
 kurbiApp.controller('mainController', ['$state','$rootScope','$scope', 'posts', 
-	'api', 'user', '$q','$aside','journalEntriesSvc',
-function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntriesSvc) {
+	'api', 'user', '$q','$aside','journalEntriesSvc','$cookies',
+function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntriesSvc, $cookies) {
+
+	$cookies.mainControllerRan = '';
 
 	// =====================
 	// GLOBAL VARIABLES 
@@ -11,84 +13,90 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 
 	// LISTS
 	user.authenticated().then(function(){
-
-		// USER VALUES
-		$scope.firstName = user.get('firstName');
-		$scope.lastName = user.get('lastName');
-		$scope.avatarImage = '/design/user_images/' + user.get('imageFileName');
-		$scope.userLoggedIn = user.get('loggedIn');
-	
-		// Care Team List
-		// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
-		api.careTeamInit().then(function(teammates){
-			$rootScope.careTeamList = teammates;
+		// make a record of first time instantiating (mainController should only run once per page load)
+		if($cookies.mainControllerRan != 'true'){
+			console.log('mainController');
+			
+			// USER VALUES
+			$scope.firstName = user.get('firstName');
+			$scope.lastName = user.get('lastName');
+			$scope.avatarImage = '/design/user_images/' + user.get('imageFileName');
+			$scope.userLoggedIn = user.get('loggedIn');
 		
-		// Posts 
-			api.postsInit($rootScope,teammates);
-		});
+			// Care Team List
+			// NOTE: This function also used in the PostsController to pass in author info to the posts - Matt E. 11/2/2015
+			api.careTeamInit().then(function(teammates){
+				// CareTeam
+				$rootScope.careTeamList = teammates;
+				// Posts 
+				api.postsInit($rootScope,teammates);
+			});
 
-		// Goals List
-		api.goalsInit().then(function(goals){
-			$rootScope.goalsList = goals;
-		});
+			// Goals List
+			api.goalsInit().then(function(goals){
+				$rootScope.goalsList = goals;
+			});
 
-		// Goals Activities List
-		api.getGoalActivitiesList()
-		.then(function(list){
-			$rootScope.goalActivitiesList = list;
-		});
+			// Goals Activities List
+			api.getGoalActivitiesList()
+			.then(function(list){
+				$rootScope.goalActivitiesList = list;
+			});
 
-		// LAST - used in Cards controller & directive
-		$scope.templast = false;
-		var kurbiGlobal = {};
-		kurbiGlobal.templast = false;
+			// LAST - used in Cards controller & directive
+			$scope.templast = false;
+			var kurbiGlobal = {};
+			kurbiGlobal.templast = false;
 
-		// Symptoms List
-		api.getSymptomList($q.defer())
-		.then(function(symptoms){
-			$scope.symptoms = symptoms;
-		});
+			// Symptoms List
+			api.getSymptomList($q.defer())
+			.then(function(symptoms){
+				$scope.symptoms = symptoms;
+			});
 
-		// Journal Entries
-		journalEntriesSvc.init()
-		.then(
-			function(data){
-//console.log("MAIN CONTROLLER LOAD: ", data);
-				if(data[0].today == false){
-	                var today = new Date;
-	                data.unshift({
-	                  date: today.toDateString(),
-	                  type: 'groupStart'
-	                });
-	                $scope.journalEntries = data;
-		            if($scope.journalEntries[1].components !== undefined && $scope.journalEntries[1].components.length > 0){
-		            	for(component in $scope.journalEntries[1].components){
-		            		$scope.journalEntries[1].components[component].id = $scope.journalEntries[1].components[component].details.id;
-		            	}
-		            }	                
-	            }
-	            else{
-	            	$scope.journalEntries = data;
-		            if($scope.journalEntries[0].components !== undefined && $scope.journalEntries[0].components.length > 0){
-		            	for(component in $scope.journalEntries[0].components){
-		            		$scope.journalEntries[0].components[component].id = $scope.journalEntries[0].components[component].details.id;
-		            	}
-		            }	            	
-	            }
-	            $scope.journalEntries = data;
-			},
-			function(error){
-				console.log(error);
-			}
-		);
+			// Journal Entries
+			journalEntriesSvc.init()
+			.then(
+				function(data){
+	//console.log("MAIN CONTROLLER LOAD: ", data);
+					if(data[0].today == false){
+		                var today = new Date;
+		                data.unshift({
+		                  date: today.toDateString(),
+		                  type: 'groupStart'
+		                });
+		                $scope.journalEntries = data;
+			            if($scope.journalEntries[1].components !== undefined && $scope.journalEntries[1].components.length > 0){
+			            	for(component in $scope.journalEntries[1].components){
+			            		$scope.journalEntries[1].components[component].id = $scope.journalEntries[1].components[component].details.id;
+			            	}
+			            }	                
+		            }
+		            else{
+		            	$scope.journalEntries = data;
+			            if($scope.journalEntries[0].components !== undefined && $scope.journalEntries[0].components.length > 0){
+			            	for(component in $scope.journalEntries[0].components){
+			            		$scope.journalEntries[0].components[component].id = $scope.journalEntries[0].components[component].details.id;
+			            	}
+			            }	            	
+		            }
+		            $scope.journalEntries = data;
+				},
+				function(error){
+					console.log(error);
+				}
+			);
 
-		// TOP SYMPTOMS (SIDEBAR)
-		api.symptomsObject.initSystemsObject();
-		$scope.topSymptomsLimit = 5;
-		$scope.topSymptomsOrder = 'count';
-		$scope.topDescending = true;
-		$scope.topSymptoms = api.symptomsObject.topSymptomsArray;
-		$scope.topSeverityColorObj = api.symptomsObject.topSeverityColorObj;
+			// TOP SYMPTOMS (SIDEBAR)
+			api.symptomsObject.initSystemsObject();
+			$scope.topSymptomsLimit = 5;
+			$scope.topSymptomsOrder = 'count';
+			$scope.topDescending = true;
+			$scope.topSymptoms = api.symptomsObject.topSymptomsArray;
+			$scope.topSeverityColorObj = api.symptomsObject.topSeverityColorObj;	
+		}
+
+		$cookies.mainControllerRan = 'true';
 	});
 
 	// =====================
