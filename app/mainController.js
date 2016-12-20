@@ -55,6 +55,7 @@ function ($state,$rootScope,$scope, posts, api, user, $q, $aside, journalEntries
 			});
 
 			// Journal Entries
+			$scope.journalEntries = '';
 			journalEntriesSvc.init()
 			.then(
 				function(data){
